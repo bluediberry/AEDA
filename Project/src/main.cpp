@@ -4,10 +4,10 @@
 using namespace std;
 
 int main() {
-    
+
     int menu = 0;
     int cliente;
-    
+
     while(menu != 4){
         while(true){
             cout << endl << "MENU INICIAL" << endl << endl;
@@ -15,14 +15,14 @@ int main() {
             cout << "[2] Registar" << endl;
             cout << "[3] Reservar campo" << endl;
             cout << "[4] Sair" << endl;
-            
+
             cin >> menu;
-            
+
             if(cin.fail()){
                 cin.clear();
                 cin.ignore('\n', 100);
             }
-            
+
             switch(menu){
                 case 1:
                     //menuInformacao();
@@ -38,11 +38,11 @@ int main() {
                 default:
                     return 0;
             }
-            
+
         }
-        
-        
+
+
     }
-    
+
     return 0;
 }
