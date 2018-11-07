@@ -1,9 +1,3 @@
-/*
- * pessoa.cpp
- *
- *  Created on: 19/10/2018
- *      Author: Cláudia Mamede
- */
 
 #include "pessoa.h"
 

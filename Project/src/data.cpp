@@ -1,9 +1,3 @@
-/*
- * data.cpp
- *
- *  Created on: 18/10/2018
- *      Author: Cláudia Mamede
- */
 
 #include "data.h"
 
@@ -52,7 +46,7 @@ int Data::getMin() const{
 }
 
 string Data::get_data() const{
-	//Criar excepçoes para os limites: dia[1-31], mes[1-12]
+	//Criar excepï¿½oes para os limites: dia[1-31], mes[1-12]
 	string day, month, year, date;
 
 	if(dia < 10)
@@ -73,7 +67,7 @@ string Data::get_data() const{
 }
 
 string Data::get_horas() const {
-	//Criar excepçoes para os limites: hora[1-24] minutos[0-59]
+	//Criar excepï¿½oes para os limites: hora[1-24] minutos[0-59]
 	string hour, minutes, hours;
 	if(hora < 10)
 		hour = "0" + to_string(hora);

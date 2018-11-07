@@ -1,9 +1,3 @@
-/*
- * pessoa.h
- *
- *  Created on: 19/10/2018
- *      Author: Cláudia Mamede
- */
 
 #ifndef PESSOA_H_
 #define PESSOA_H_
@@ -24,7 +18,7 @@ public:
 	string getNome() const;
 	string getPassword() const;
 	void setPassword(string password);
-	virtual void adiciona_ao_ficheiro(); //É preciso criar fich.txt
+	virtual void adiciona_ao_ficheiro(); //ï¿½ preciso criar fich.txt
 };
 
 

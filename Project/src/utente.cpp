@@ -1,9 +1,4 @@
-/*
- * utente.cpp
- *
- *  Created on: 19/10/2018
- *      Author: Cláudia Mamede
- */
+
 
 #include "utente.h"
 
@@ -49,4 +44,3 @@ void Utente::adiciona_ao_ficheiro(){
 	ofs << info_total;
 	ofs.close();
 }
-
