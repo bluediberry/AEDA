@@ -1,12 +1,3 @@
-/*
- * utente.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
-
 #include "utente.h"
 #include <stdio.h>
 

@@ -1,10 +1,3 @@
-/*
- * camposTenis.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "campoTenis.h"
 #include <stdio.h>
 
@@ -47,4 +40,3 @@ void campoTenis::adicionar_dia(const Dia & d1){
 	ocupacao_por_dia.push_back(d1);
 	ocupacao_por_dia.back().inicializar_horario(abertura, fecho);
 }
-

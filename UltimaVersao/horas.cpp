@@ -1,11 +1,3 @@
-/*
- * horas.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
 #include "horas.h"
 Horario::Horario(string horario){
 	//formato HH:MM
@@ -27,7 +19,7 @@ int Horario::getMin() const{
 }
 
 string Horario::horario_friendly_print() const {
-	//Criar excepçoes para os limites: hora[1-24] minutos[0-59]
+	//Criar excepï¿½oes para os limites: hora[1-24] minutos[0-59]
 	string hour, minutes, hours;
 	if(horas < 10)
 		hour = "0" + to_string(horas);
@@ -72,4 +64,3 @@ Horario Horario::com_duracao(int duracao){
 	Horario h1(this->getHoras()+hora, this->getMin()+minutos);
 	return h1;
 }
-

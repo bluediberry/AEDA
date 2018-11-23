@@ -1,10 +1,3 @@
-/*
- * livre.h
- *
- *  Created on: 14/11/2018
- *      Author: Cláudia Mamede
- */
-
 #ifndef LIVRE_H_
 #define LIVRE_H_
 
@@ -44,7 +37,7 @@ public:
 class ExceptionInvalidFreeDuration{
 public:
 	ExceptionInvalidFreeDuration(){
-		cout<<"A duração do modo livre deve ter x minutos"<<endl;
+		cout<<"A duraï¿½ï¿½o do modo livre deve ter x minutos"<<endl;
 	}
 };
 

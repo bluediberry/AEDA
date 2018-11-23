@@ -1,10 +1,3 @@
-/*
- * headers.cpp
- *
- *  Created on: 17/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "headers.h"
 
 int menu_principal(){
@@ -12,7 +5,7 @@ int menu_principal(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"  EMPRESA DE GESTAO DE CAMPOS TENIS "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma opção."<<endl;
+	cout<<"Por favor, selecione uma opï¿½ï¿½o."<<endl;
 	cout<<"1. Login"<<endl;
 	cout<<"2. Registar"<<endl;
 	cout<<"3. Consultar horarios"<<endl;
@@ -20,7 +13,7 @@ int menu_principal(){
 	cout<<"5. Sair"<<endl;
 	cin>>opcao;
 	while(opcao < 1 || opcao > 5){
-		cout<<"Por favor selecione uma opção válida [1-5]\n"<<endl;
+		cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida [1-5]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -31,14 +24,14 @@ int menu_consultas(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"          C O N S U L T A S         "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma opção."<<endl;
-	cout<<"1. Horário de campo"<<endl;
-	cout<<"2. Horário das aulas "<<endl;
-	cout<<"3. Horário de professor"<<endl;
+	cout<<"Por favor, selecione uma opï¿½ï¿½o."<<endl;
+	cout<<"1. Horï¿½rio de campo"<<endl;
+	cout<<"2. Horï¿½rio das aulas "<<endl;
+	cout<<"3. Horï¿½rio de professor"<<endl;
 	cout<<"4. Menu anterior"<<endl;
 	cin>>opcao;
 	while(opcao < 1 || opcao > 4){
-		cout<<"Por favor selecione uma opção válida [1-4]\n"<<endl;
+		cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida [1-4]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -49,7 +42,7 @@ int management_menu(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"    M O D O   M A N A G E M E N T   "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma opção."<<endl;
+	cout<<"Por favor, selecione uma opï¿½ï¿½o."<<endl;
 	cout<<"1. Registar professor"<<endl;
 	cout<<"2. Registar campo"<<endl;
 	cout<<"3. Criar dia de funcionamento"<<endl;
@@ -57,11 +50,11 @@ int management_menu(){
 	cout<<"5. Consultar utentes"<<endl;
 	cout<<"6. Verificar estatisticas"<<endl;
 	cout<<"7. Alterar nivel de aluno"<<endl;
-	cout<<"8. Guardar configuraçoes"<<endl;
+	cout<<"8. Guardar configuraï¿½oes"<<endl;
 	cout<<"9. Sair"<<endl;
 	cin>>opcao;
 	while(opcao < 1 || opcao > 9){
-		cout<<"Por favor selecione uma opção válida [1-8]\n"<<endl;
+		cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida [1-8]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -72,7 +65,7 @@ int menu_login(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"         B E M   V I N D O !        "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma opção."<<endl;
+	cout<<"Por favor, selecione uma opï¿½ï¿½o."<<endl;
 	cout<<"1. Marcar aula"<<endl;
 	cout<<"2. Marcar livre"<<endl;
 	cout<<"3. Ver dados"<<endl;
@@ -80,7 +73,7 @@ int menu_login(){
 	cout<<"5. Sair"<<endl;
 	cin>>opcao;
 	while(opcao < 1 || opcao > 6){
-		cout<<"Por favor selecione uma opção válida [1-5]\n"<<endl;
+		cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida [1-5]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -167,7 +160,7 @@ void file_professores(){
 
 void horario_professor(){
 	cout<<"--------------------------------------"<<endl;
-	cout<<"   H O R Á R I O   P R O F E S S O R  "<<endl;
+	cout<<"   H O R ï¿½ R I O   P R O F E S S O R  "<<endl;
 	cout<<"--------------------------------------"<<endl;
 }
 
@@ -183,5 +176,3 @@ void header_marcar_aula(){
 	cout<<"          M A R C A R  A U L A        "<<endl;
 	cout<<"--------------------------------------"<<endl;
 }
-
-

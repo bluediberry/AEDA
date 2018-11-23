@@ -1,10 +1,3 @@
-/*
- * periodo.h
- *
- *  Created on: 19/11/2018
- *      Author: Cláudia Mamede
- */
-
 #ifndef PERIODO_H_
 #define PERIODO_H_
 

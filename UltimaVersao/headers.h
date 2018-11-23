@@ -1,13 +1,5 @@
-/*
- * headers.h
- *
- *  Created on: 17/11/2018
- *      Author: Cláudia Mamede
- */
-
 #ifndef HEADERS_H_
 #define HEADERS_H_
-
 #include <iostream>
 #include <string>
 using namespace std;

@@ -1,12 +1,3 @@
-/*
- * data.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
-
 #include "data.h"
 
 
@@ -20,7 +11,7 @@ Data::Data(string data){
 
 	//Este throw talvez tenha de estar num while para q o programa nao va abaixo.
 	while(day < 0 || day > 31 || month < 0 || month > 12 || year < 2010 ){ //a empresa so abriu um 2010
-		cout<<"Introduza uma data válida no formato DD-MM-YYYY.  Dia[0-31] Mes[0-12] Ano[2011, ...]"<<endl;
+		cout<<"Introduza uma data vï¿½lida no formato DD-MM-YYYY.  Dia[0-31] Mes[0-12] Ano[2011, ...]"<<endl;
 		cin>>date;
 		day=stoi(data.substr(0,2));
 		month=stoi(data.substr(3,2));
@@ -48,7 +39,7 @@ int Data::getDia() const{
 
 
 string Data::data_friendly_print() const{
-	//Criar excepçoes para os limites: dia[1-31], mes[1-12]
+	//Criar excepï¿½oes para os limites: dia[1-31], mes[1-12]
 	string day, month, year, date;
 
 	if(dia < 10)

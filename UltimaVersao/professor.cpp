@@ -1,10 +1,3 @@
-/*
- * professor.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "professor.h"
 
 
@@ -38,4 +31,3 @@ bool Professor::remover_aula(Aula * a2){
 vector<Aula*> Professor::getAulas() const{
 	return this->aulas_dadas;
 }
-

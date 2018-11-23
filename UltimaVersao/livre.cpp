@@ -1,10 +1,3 @@
-/*
- * livre.cpp
- *
- *  Created on: 14/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "livre.h"
 
 int Livre::id=0;
@@ -21,7 +14,7 @@ void Livre::setDuracao(int duracao){
 	this->duracao=duracao;
 
 	while(duracao<0 || duracao >5){
-		cout<<"O tempo máximo de ocupacao de um campo em tempo livre é 2h30."<<endl;
+		cout<<"O tempo mï¿½ximo de ocupacao de um campo em tempo livre ï¿½ 2h30."<<endl;
 		cout<<"Escolha um numero de 1(30min)-5(2h30)."<<endl;
 		cin>>dur;
 		setDuracao(dur);

@@ -1,10 +1,3 @@
-/*
- * aula.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include <stdio.h>
 #include "aula.h"
 

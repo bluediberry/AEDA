@@ -1,11 +1,3 @@
-/*
- * professor.h
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
 #ifndef PROFESSOR_H_
 #define PROFESSOR_H_
 

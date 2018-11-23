@@ -1,10 +1,3 @@
-/*
- * horas.h
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
 #ifndef HORAS_H_
 #define HORAS_H_
 

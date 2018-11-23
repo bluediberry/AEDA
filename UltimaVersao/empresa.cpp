@@ -1,10 +1,3 @@
-/*
- * empresa.cpp
- *
- *  Created on: 17/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "empresa.h"
 
 float Empresa::cartao_gold_preco = 5.95;
@@ -58,7 +51,7 @@ bool Empresa::registar_CampoTenis(){
 
 	campoTenis* ct1=new campoTenis(numero_maximo_utentes_por_campo, abertura, fecho);
 	this->adicionar_campo(ct1);
-	cout<<"Esta açao por si só nao faz nada. Deverá acrescentar um dia de funcionamento."<<endl;
+	cout<<"Esta aï¿½ao por si sï¿½ nao faz nada. Deverï¿½ acrescentar um dia de funcionamento."<<endl;
 	return true;
 }
 
@@ -72,7 +65,7 @@ bool Empresa::adicionar_DiadeAtividade(int idCampo){
 	return true;
 }
 
-bool Empresa::criar_Utente(){
+bool Empresa::r_Utente(){
 	string nome, password;
 	int nivel, cartao;
 	cout<<"Nome: ";
@@ -81,8 +74,8 @@ bool Empresa::criar_Utente(){
 	cin>>password;
 	cout<<endl<<"Nivel: ";
 	cin>>nivel;
-	cout<<endl<<"Pretende aderir ao cartão gold com um custo fixo mensal de "<< cartao_gold_preco << "€ que permite o acesso a aulas com 15% desconto?"<<endl;
-	cout<<"0. Não, obrigada!		1. Sim, quero!"<<endl;
+	cout<<endl<<"Pretende aderir ao cartï¿½o gold com um custo fixo mensal de "<< cartao_gold_preco << "ï¿½ que permite o acesso a aulas com 15% desconto?"<<endl;
+	cout<<"0. Nï¿½o, obrigada!		1. Sim, quero!"<<endl;
 	cin>>cartao;
 
 	Utente* u1 = new Utente(nome, password, nivel, cartao);
@@ -216,7 +209,7 @@ void Empresa::getEstatisticas(){
 	cout<<"Numero de utentes:\t\t"<<getUtentes().size()<<endl;
 	cout<<"Numero de aulas:\t\t"<<getAulas().size()<<endl;
 	cout<<"Numero de utilizacoes em modo livre: "<<getLivre().size()<<endl;
-	cout<<"Ganhos da empresa:\t\t"<<getSaldo()<<"€"<<endl<<endl;
+	cout<<"Ganhos da empresa:\t\t"<<getSaldo()<<"ï¿½"<<endl<<endl;
 
 	cout<<"Listagem completa. Prima uma tecla."<<endl;
 			string tecla;
@@ -277,7 +270,7 @@ bool Empresa::criar_Modo_Livre(){
 	cin>>data;
 	cout<<endl<<"Hora de inicio (HHhMM): ";
 	cin>>hora_inicio;
-	cout<<endl<<"Duracao:   nº blocos de 30min"<<endl;
+	cout<<endl<<"Duracao:   nï¿½ blocos de 30min"<<endl;
 	cin>>duracao;
 
 
@@ -367,7 +360,7 @@ bool Empresa::juntar_a_modo_livre(int idAluno){
 	cin>>id_modo_livre;
 
 	while(id_modo_livre < 0 || id_modo_livre >= getLivre().size() ){
-		cout<<"Escolha um modo livre válido. "<<endl;
+		cout<<"Escolha um modo livre vï¿½lido. "<<endl;
 		cout<<"Relembramos que deve fazer reserva do campo antes de se juntar."<<endl;
 		cin>>id_modo_livre;
 	}

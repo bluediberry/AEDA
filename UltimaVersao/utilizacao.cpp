@@ -1,10 +1,3 @@
-/*
- * utilizacao.cpp
- *
- *  Created on: 16/11/2018
- *      Author: Cláudia Mamede
- */
-
 #include "utilizacao.h"
 
 
@@ -37,6 +30,3 @@ void Utilizacao::setHorario(Horario horario){
 Horario Utilizacao::getHorario() const{
 	return this->horario;
 }
-
-
-

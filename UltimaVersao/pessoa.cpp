@@ -1,11 +1,3 @@
-/*
- * pessoa.cpp
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
 #include "pessoa.h"
 int Pessoa::number=0;
 
@@ -37,5 +29,3 @@ bool Pessoa::operator==(const Pessoa &outroUtente){
 
 	return false;
 }
-
-

@@ -1,11 +1,3 @@
-/*
- * utente.h
- *
- *  Created on: 13/11/2018
- *      Author: Cláudia Mamede
- */
-
-
 #ifndef UTENTE_H_
 #define UTENTE_H_
 

@@ -1,12 +1,3 @@
-//============================================================================
-// Name        : AEDA_projeto.cpp
-// Author      : Cláudia Mamede
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
-
 #include "empresa.h"
 #include "headers.h"
 
@@ -21,6 +12,10 @@ bool criar_Utente(Empresa & empresa);
 void limpa();
 int inicializar_empresa(Empresa & empresa);
 
+/**
+ * @brief Main Function
+ * @return 0 on successfull run
+ */
 int main() {
 	//vector<campoTenis*> camposTenis;
 
@@ -62,9 +57,9 @@ int main() {
 									header_marcar_aula();
 									sucess=empresa.juntar_a_aula(id);
 									if(sucess){
-										cout<<"Juntou-se com sucesso à aula."<<endl;
+										cout<<"Juntou-se com sucesso ï¿½ aula."<<endl;
 									}
-									else cout<<"Não foi possivel juntar-se à aula"<<endl;
+									else cout<<"Nï¿½o foi possivel juntar-se ï¿½ aula"<<endl;
 									cout<<"Pressione para continuar."<<endl;
 									string resp;
 									cin>>resp;
@@ -80,9 +75,9 @@ int main() {
 								empresa.criar_Modo_Livre();
 								sucess=empresa.juntar_a_modo_livre(id);
 								if(sucess){
-									cout<<"Juntou-se com sucesso à aula."<<endl;
+									cout<<"Juntou-se com sucesso ï¿½ aula."<<endl;
 								}
-								else cout<<"Não foi possivel juntar-se à aula"<<endl;
+								else cout<<"Nï¿½o foi possivel juntar-se ï¿½ aula"<<endl;
 								cout<<"Pressione para continuar."<<endl;
 								string resp;
 								cin>>resp;
@@ -142,7 +137,7 @@ int main() {
 						cin>>numero_campo;
 						cout<<empresa.getCampos().size();
 						while(numero_campo < 0 || numero_campo > empresa.getCampos().size()){
-							cout<<"Por favor selecione uma opção válida. \n"<<endl;
+							cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida. \n"<<endl;
 							cin>>numero_campo;
 						}
 
@@ -213,7 +208,7 @@ int main() {
 								cout<<"Para que campo quer acrescentar dia de funcionamento?"<<endl;
 								cin>>id_campo;
 								while(id_campo < 0 || id_campo > empresa.getCampos().size()){
-									cout<<"Por favor selecione uma opção válida. \n"<<endl;
+									cout<<"Por favor selecione uma opï¿½ï¿½o vï¿½lida. \n"<<endl;
 									cin>>id_campo;
 								}
 								empresa.adicionar_DiadeAtividade(id_campo);
@@ -256,7 +251,7 @@ int main() {
 						{
 							//BACK UP SISTEMA
 							limpa();
-							//cabeçalho
+							//cabeï¿½alho
 							empresa.guardarConfig();
 
 						}

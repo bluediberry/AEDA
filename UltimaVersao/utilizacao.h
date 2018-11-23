@@ -1,10 +1,3 @@
-/*
- * utilizacao.h
- *
- *  Created on: 16/11/2018
- *      Author: Cláudia Mamede
- */
-
 #ifndef UTILIZACAO_H_
 #define UTILIZACAO_H_
 
