@@ -7,6 +7,10 @@ class Dia {
 	vector<Periodo*> blocos;
 
 public:
+	/**
+ * @brief
+ * @return
+ */
 	Dia(string data): data(Data(data)){};
 
 	/**

@@ -12,12 +12,48 @@ class Utilizacao {
 
 
 public:
+	/**
+ * @brief Construtor da classe Utilizacao.
+ * @param data - data em que foi realizada a utlizacao
+ * @param horario -  Horario em que foi utlizado
+ * @param preco -  Preco da utilizacao
+ */
 	Utilizacao(string data, string horario, float preco);
+
+	/**
+ * @brief
+ * @return
+ */
 	void setPreco(float preco);
+
+	/**
+ * @brief
+ * @return
+ */
 	float getPreco() const;
+
+	/**
+ * @brief
+ * @return
+ */
 	void setData(Data data);
+
+	/**
+ * @brief
+ * @return
+ */
 	Data getData() const;
+
+	/**
+ * @brief
+ * @return
+ */
 	void setHorario(Horario horario);
+
+	/**
+ * @brief
+ * @return
+ */
 	Horario getHorario() const;
 
 

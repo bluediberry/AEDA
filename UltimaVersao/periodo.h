@@ -19,10 +19,34 @@ public:
 
 	};
 
+	/**
+ * @brief
+ * @return
+ */
 	void setIdentificacaoAula(int &value){ identificacao_aula=value; }
+
+	/**
+ * @brief
+ * @return
+ */
 	void setIdentificacaoLivre(int &value){ identificacao_livre=value; }
+
+	/**
+ * @brief
+ * @return
+ */
 	int getIdentificacaoAula() const{ return this->identificacao_aula; }
+
+	/**
+ * @brief
+ * @return
+ */
 	int getIdentificacaoLivre() const{ return this->identificacao_livre;}
+
+	/**
+ * @brief
+ * @return
+ */
 	Horario getInicioBloco() const {return inicio_bloco;}
 
 

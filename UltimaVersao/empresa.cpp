@@ -203,6 +203,7 @@ float Empresa::getSaldo(){
 
 	return saldo;
 }
+
 void Empresa::getEstatisticas(){
 	cout<<"Numero de campos:\t\t"<<getCampos().size()<<endl;
 	cout<<"Numero de professores:\t\t"<<getProfessores().size()<<endl;
@@ -216,6 +217,7 @@ void Empresa::getEstatisticas(){
 			cin>>tecla;
 
 }
+
 bool Empresa::criar_Aula(){
 	string hora_inicio, data;
 	float preco;

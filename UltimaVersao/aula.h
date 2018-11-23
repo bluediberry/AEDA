@@ -51,7 +51,7 @@ public:
 	vector<Utente*> getAlunos() const;
 
 	/**
- * @brief Operador == para comparar datas.
+ * @brief Operador == para comparar aulas.
  * @param a2 - uma outra aula para comparar à aula em questão.
  * @return Retorna true caso a aula em questão seja igual à aula a comparar, false caso contrário.
  */
