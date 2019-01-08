@@ -5,7 +5,9 @@ float Empresa::desconto_cartao_gold = 0.15;
 int Empresa::numero_maximo_utentes_por_campo=25;
 float Empresa::preco_modo_livre=7.50;
 
-
+Empresa::Empresa() : utilizadores(Utente("", "",0,true)){
+	gastosEmReparacoes=0;
+}
 void Empresa::adicionar_campo(campoTenis * c){
 	campos.push_back(c);
 }
@@ -111,15 +113,9 @@ void Empresa::listar_DiadeAtividade(int idCampo, Data data){
 			}
 		}
 	}
-
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	string tecla;
-	cin>>tecla;
-
 }
 
 void Empresa::listar_allAulas(){
-	string tecla;
 	for(unsigned int i=0; i<getAulas().size(); i++){
 		for(unsigned int j=0; j<getCampos().size(); j++){
 			for(unsigned int k=0; k<getCampos().at(j)->getOcupacao().size(); k++){
@@ -138,15 +134,10 @@ void Empresa::listar_allAulas(){
 		}
 	}
 
-
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	cin>>tecla;
-
 }
 
 void Empresa::listar_Aulas(string nomeProfessor){
 	auto it = professores.begin();
-
 	for(it; it!=professores.end(); it++){
 		string name = (*it).prof->getNome();
 		if (name == nomeProfessor){
@@ -154,43 +145,33 @@ void Empresa::listar_Aulas(string nomeProfessor){
 				cout<<(*it).prof->getAulas().at(j)->getData().data_friendly_print()<<"\t\t";
 				cout<<(*it).prof->getAulas().at(j)->getHorario().horario_friendly_print()<<"\t\t\t\t";
 				cout<<(*it).prof->getAulas().at(j)->getIdentificacao();
-
 			}
 		}
 	}
-
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	string tecla;
-	cin>>tecla;
 }
 
 
 void Empresa::listar_camposDisponiveis(){
+	cout<<"ID\tMAX UTIL\tABERTURA\tFECHO"<<endl;
 	for(unsigned int i=0; i<getCampos().size(); i++){
 			cout<<getCampos().at(i)->getNumeroCampo()<<"\t";
 			cout<<getCampos().at(i)->getMaxUtilizadores()<<"\t\t";
 			cout<<getCampos().at(i)->getHorarioAbertura().horario_friendly_print()<< "\t\t";
 			cout<<getCampos().at(i)->getHorarioFecho().horario_friendly_print()<<endl;
 		}
-		cout<<endl<<endl;
 }
 
 void Empresa::listar_professoresDisponiveis(){
 	auto it = professores.begin();
-
 	for(it; it!=professores.end(); it++){
 		cout<<(*it).prof->getID()<<"\t";
 		cout<<(*it).prof->getNome()<<"\t"<<endl;
 	}
-
-	cout<<endl<<endl;
 }
 
 void Empresa::listar_Alunos(){
 	cout<<"ID\tNOME\tCARTAO\tNIVEL\tCONTA"<<endl;
 	BSTItrIn<Utente> it(utilizadores);
-
-
 	while(!it.isAtEnd()){
 		cout<<it.retrieve().getID()<<"\t";
 		cout<<it.retrieve().getNome()<<"\t";
@@ -200,17 +181,11 @@ void Empresa::listar_Alunos(){
 
 		it.advance();
 	}
-
-
 	cout<<endl<<"*NOTA: 0 para nao tem cartao; 1 para tem cartao"<<endl;
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-		string tecla;
-		cin>>tecla;
 }
 
 float Empresa::getSaldo(){
 	float saldo=0.0;
-
 	BSTItrIn<Utente> it(utilizadores);
 	while(!it.isAtEnd()){
 		saldo+=it.retrieve().getConta();
@@ -233,11 +208,8 @@ void Empresa::getEstatisticas(){
 	cout<<"Numero de utentes:\t\t"<<contador<<endl;
 	cout<<"Numero de aulas:\t\t"<<getAulas().size()<<endl;
 	cout<<"Numero de utilizacoes em modo livre: "<<getLivre().size()<<endl;
-	cout<<"Ganhos da empresa:\t\t"<<getSaldo()<<endl<<endl;
-
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	string tecla;
-	cin>>tecla;
+	cout<<"Ganhos da empresa:\t\t"<<getSaldo()<<endl;
+	cout<<"Gastos da empresa:\t\t"<<getGastosEmReparacoes()<<endl<<endl;
 
 }
 
@@ -297,7 +269,7 @@ bool Empresa::criar_Modo_Livre(){
 	cin>>data;
 	cout<<endl<<"Hora de inicio (HHhMM): ";
 	cin>>hora_inicio;
-	cout<<endl<<"Duracao:   n� blocos de 30min"<<endl;
+	cout<<endl<<"Duracao:   nr blocos de 30min"<<endl;
 	cin>>duracao;
 
 
@@ -342,7 +314,6 @@ bool Empresa::findUtente(int id){
 }
 
 bool Empresa::checkPassword(int id, string password){
-
 	BSTItrIn<Utente> it(utilizadores);
 		while(!it.isAtEnd()){
 			if(it.retrieve().getID() == id && it.retrieve().getPassword()==password)
@@ -386,7 +357,6 @@ bool Empresa::juntar_a_aula(int idAluno){
 		it.advance();
 	}
 	return false;
-
 }
 
 bool Empresa::juntar_a_modo_livre(int idAluno){
@@ -396,7 +366,7 @@ bool Empresa::juntar_a_modo_livre(int idAluno){
 	cin>>id_modo_livre;
 
 	while(id_modo_livre < 0 || id_modo_livre >= getLivre().size() ){
-		cout<<"Escolha um modo livre v�lido. "<<endl;
+		cout<<"Escolha um modo livre valido. "<<endl;
 		cout<<"Relembramos que deve fazer reserva do campo antes de se juntar."<<endl;
 		cin>>id_modo_livre;
 	}
@@ -420,20 +390,20 @@ bool Empresa::juntar_a_modo_livre(int idAluno){
 	return false;
 }
 
-int Empresa::guardarConfig(){
+void Empresa::guardarConfig(){
 	/*GUARDAR INFO DOS CAMPOS*/
 	ofstream campos;
-	campos.open ("./Files/campos_temp.txt", ofstream::out);
+	campos.open ("./Files/campos.txt");
 	for(unsigned int i=0; i<getCampos().size(); i++){
 		campos<<getCampos().at(i)->getInfo()<<endl;
 	}
 	campos.close();
 
 
-	/*GUARDAR INFO DOS ALUNOS*/
+	/*GUARDAR INFO DOS UTENTES*/
 	ofstream utentes;
 	BSTItrIn<Utente> it(utilizadores);
-	utentes.open("./Files/alunos_temp.txt", ofstream::out);
+	utentes.open("./Files/utentes.txt");
 
 	while(!it.isAtEnd()){
 		Utente u1 = it.retrieve();
@@ -446,7 +416,7 @@ int Empresa::guardarConfig(){
 
 	/*GUARDAR INFO DOS PROFS*/
 	ofstream professor;
-	professor.open("./Files/professores_temp.txt", ofstream::out);
+	professor.open("./professores.txt");
 	auto itprof = professores.begin();
 
 	for(itprof; itprof!=getProfessores().end(); itprof++){
@@ -456,9 +426,26 @@ int Empresa::guardarConfig(){
 	professor.close();
 
 
+	/*GUARDAR INFO DOS TECNICOS*/
+	ofstream tecs;
+	tecs.open("./Files/tecnicos.txt");
+	vector<Tecnico> temp1;
+
+	while(!tecnicos.empty()){
+		Tecnico t1 = tecnicos.top();
+		tecs<<t1.getInfo()<<endl;
+		tecnicos.pop();
+		temp1.push_back(t1);
+	}
+
+	for(unsigned int i=0; i<temp1.size(); i++){
+		tecnicos.push(temp1[i]);
+	}
+
+
 	/*GUARDAR INFO DAS AULAS*/
 	ofstream aulas;
-	aulas.open("./Files/aulas_temp.txt", ofstream::out);
+	aulas.open("./Files/aulas.txt");
 	for(unsigned int l=0; l<getCampos().size(); l++){
 		for(unsigned int n=0; n<getCampos().at(l)->getOcupacao().size(); n++){
 			for(unsigned int m=0; m<getCampos().at(l)->getOcupacao().at(n).getBlocos().size(); m++){
@@ -471,8 +458,27 @@ int Empresa::guardarConfig(){
 		}
 	}
 
+	/**GUARDAR INFO REPARACOES*/
+	ofstream reparacoes;
+	reparacoes.open("./Files/reparacoes.txt");
+	vector<Tecnico> temp2;
+
+	while(!tecnicos.empty()){
+		Tecnico t1 = tecnicos.top();
+		for(unsigned int i=0; i<t1.getCamposReparados().size(); i++){
+			reparacoes<<t1.getID()<<":"<<t1.getCamposReparados().at(i)->getNumeroCampo()<<":"<<t1.getDiasReparacao()[i]->data_friendly_print()<<endl;
+		}
+
+		tecnicos.pop();
+		temp1.push_back(t1);
+	}
+
+	for(unsigned int i=0; i<temp2.size(); i++){
+		tecnicos.push(temp2[i]);
+	}
 
 
+	/*
 	ifstream  src1("./Files/campos_temp.txt");
 	ofstream  dst1("./Files/campos.txt");
 	ifstream  src2("./Files/alunos_temp.txt");
@@ -481,6 +487,182 @@ int Empresa::guardarConfig(){
 	ofstream  dst3("./Files/aulas.txt");
 	ifstream  src4("./Files/professores_temp.txt");
 	ofstream  dst4("./Files/professores.txt");
+	*/
+}
+
+void Empresa::abrirConfig(){
+	//campos
+	string line, abertura, fecho;
+	int idCampo, numUtilizadores;
+	int pointsIndex;
+	ifstream campos;
+	campos.open("./Files/campos.txt");
+	while(getline(campos, line)){
+		pointsIndex=line.find_first_of(':');
+		idCampo = atoi((line.substr(0,pointsIndex)).c_str());
+		line.erase(0, pointsIndex+1);
+
+		pointsIndex=line.find_first_of(':');
+		numUtilizadores = atoi((line.substr(0,pointsIndex)).c_str());
+		line.erase(0, pointsIndex+1);
+
+		pointsIndex=line.find_first_of(':');
+		abertura=line.substr(0,pointsIndex);
+		line.erase(0, pointsIndex+1);
+
+		pointsIndex=line.find_first_of(':');
+		fecho=line.substr(0,pointsIndex);
+		line.erase(0, pointsIndex+1);
+
+		campoTenis *ct1 = new campoTenis(idCampo, numUtilizadores, abertura, fecho);
+		adicionar_campo(ct1);
+	}
+
+	//utentes
+	string line1, password, nome;
+	int idUtilizador, nivel, cartao, nlivre, naulas;
+	float conta;
+	ifstream utentes;
+	utentes.open("./Files/utentes.txt");
+	while(getline(utentes, line1)){
+		pointsIndex=line1.find_first_of(':');
+		idUtilizador = atoi((line1.substr(0,pointsIndex)).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		cartao = atoi((line1.substr(0,pointsIndex)).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		nivel=atoi(line1.substr(0,pointsIndex).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		password=line1.substr(0,pointsIndex);
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		conta=atof(line1.substr(0,pointsIndex).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		naulas=atoi(line1.substr(0,pointsIndex).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		nlivre=atoi(line1.substr(0,pointsIndex).c_str());
+		line1.erase(0, pointsIndex+1);
+
+		pointsIndex=line1.find_first_of(':');
+		nome=line1.substr(0,pointsIndex);
+		line1.erase(0, pointsIndex+1);
+
+		Utente u1(idUtilizador, nome, password, nivel, cartao, nlivre, naulas);
+		adicionarUtilizador(u1);
+	}
+
+	//professores
+	string line3, nomeProf;
+	int idProfessor;
+	ifstream professores;
+	professores.open("./Files/professores.txt");
+	while(getline(professores, line3)){
+		pointsIndex=line3.find_first_of(':');
+		idProfessor = atoi((line3.substr(0,pointsIndex)).c_str());
+		line3.erase(0, pointsIndex+1);
+
+		pointsIndex=line3.find_first_of(':');
+		nomeProf=line3.substr(0,pointsIndex);
+		line3.erase(0, pointsIndex+1);
+
+		Professor *p1 = new Professor(idProfessor, nomeProf);
+		adicionarProfessor(p1);
+	}
+
+	//aulas+dias
+	string line4, data, horario;
+	int idAula, idCampo2;
+	float preco;
+	ifstream aulas;
+	aulas.open("./Files/aulas.txt");
+	while(getline(aulas, line4)){
+		pointsIndex=line4.find_first_of(':');
+		idCampo2 = atoi((line4.substr(0,pointsIndex)).c_str());
+		line4.erase(0, pointsIndex+1);
+
+		pointsIndex=line4.find_first_of(':');
+		idAula=atoi((line4.substr(0,pointsIndex)).c_str());
+		line4.erase(0, pointsIndex+1);
+
+		pointsIndex=line4.find_first_of(':');
+		data=line4.substr(0,pointsIndex);
+		line4.erase(0, pointsIndex+1);
+
+		pointsIndex=line4.find_first_of(':');
+		horario=line4.substr(0,pointsIndex);
+		line4.erase(0, pointsIndex+1);
+
+		pointsIndex=line4.find_first_of(':');
+		preco=atof(line4.substr(0,pointsIndex).c_str());
+		line4.erase(0, pointsIndex+1);
+
+
+		atribuir_campo_prof(idCampo2, idAula, data, horario, preco);
+	}
+
+
+	//tecnicos
+	string line6, nomeTec;
+	int DiasAteDisponibilidade, nrReparacoes, idTecnico;
+	float custoReparacao;
+	ifstream tecnicos;
+	tecnicos.open("./File/tecnicos.txt");
+	while(getline(tecnicos, line6)){
+		pointsIndex=line6.find_first_of(':');
+		idTecnico = atoi((line6.substr(0,pointsIndex)).c_str());
+		line6.erase(0, pointsIndex+1);
+
+		pointsIndex=line6.find_first_of(':');
+		nomeTec=line6.substr(0,pointsIndex);
+		line6.erase(0, pointsIndex+1);
+
+		pointsIndex=line6.find_first_of(':');
+		custoReparacao=atof(line6.substr(0,pointsIndex).c_str());
+		line6.erase(0, pointsIndex+1);
+
+		pointsIndex=line6.find_first_of(':');
+		nrReparacoes = atoi((line6.substr(0,pointsIndex)).c_str());
+		line6.erase(0, pointsIndex+1);
+
+		pointsIndex=line6.find_first_of(':');
+		DiasAteDisponibilidade = atoi((line6.substr(0,pointsIndex)).c_str());
+		line6.erase(0, pointsIndex+1);
+
+		Tecnico t1(idTecnico, nomeTec, nrReparacoes, DiasAteDisponibilidade, custoReparacao);
+		adicionarTecnico(t1);
+	}
+
+	//reparacoes
+	string line5, data2;
+	int idCampo3, idTecnico2;
+
+	ifstream reparacoes;
+	reparacoes.open("./Files/reparacoes.txt");
+	while(getline(reparacoes, line5)){
+		pointsIndex = line5.find_first_of(':');
+		idTecnico = atoi((line5.substr(0, pointsIndex)).c_str());
+		line5.erase(0, pointsIndex+1);
+
+		pointsIndex=line5.find_first_of(':');
+		idCampo3=atoi((line5.substr(0,pointsIndex)).c_str());
+		line5.erase(0, pointsIndex+1);
+
+		pointsIndex=line5.find_first_of(':');
+		data2=line5.substr(0,pointsIndex);
+		line5.erase(0, pointsIndex+1);
+
+		adicionarReparacao(idTecnico, idCampo3, data2);
+	}
 
 
 }
@@ -494,14 +676,10 @@ void Empresa::verDadosUtente(int idAluno){
 		}
 		it.advance();
 	}
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	string tecla;
-	cin>>tecla;
 
 }
 
 void Empresa::verAula(int idAluno){
-
 	cout<<"IDENTIFICACAO\tDATA \tHORARIO"<<endl;
 	for(unsigned int i=0; i<getAulas().size(); i++){
 		for(unsigned int j=0; j<getAulas().at(i)->getAlunos().size(); j++){
@@ -514,9 +692,6 @@ void Empresa::verAula(int idAluno){
 		}
 	}
 
-	cout<<"Listagem completa. Prima uma tecla."<<endl;
-	string tecla;
-	cin>>tecla;
 }
 
 bool Empresa::atribuir_campo_prof(int idCampo, int idAula, string data, string horario, float preco){
@@ -589,18 +764,14 @@ void Empresa::changeNivel(int idAluno){
 	}
 
 	if(sucesso){
-		cout<<"O nivel foi alterado para "<<newnivel<<". Prima uma tecla."<<endl;
-		string tecla;
-		cin>>tecla;
+		cout<<"O nivel foi alterado para "<<newnivel<<endl;
 	}
 	else {
 		cout<<"O utente em questao nao foi encontrado. Tente com outro ID."<<endl;
-		string tecla;
-		cin>>tecla;
 	}
 }
 
-bool Empresa::adicionarTecnico(Tecnico &t1) {
+void Empresa::adicionarTecnico(Tecnico &t1) {
 	tecnicos.push(t1);
 }
 
@@ -608,7 +779,86 @@ priority_queue<Tecnico> Empresa::getTecnicos() {
 	return tecnicos;
 }
 
-Tecnico Empresa::atribuirReparacao(int idCampo, string dataReparacao){
-	Tecnico t1 = getTecnicos().top();
+bool Empresa::atribuirReparacao(int idCampo, string dataReparacao){
+	vector<Tecnico> temp;
+
+	while(!tecnicos.empty()){
+		Tecnico t1 = tecnicos.top();
+
+		if(!t1.checkDiaReparacao(dataReparacao)){
+			for(unsigned int i=0; i<campos.size(); i++){
+				campoTenis *ct1 = campos.at(i);
+				if(ct1->getNumeroCampo() == idCampo){
+					t1.adicionarCampoReparacao(ct1);
+					t1.adicionarDiaReparacao(dataReparacao);
+					int n = t1.getNumeroReparacoes();
+					n++;
+					t1.setNumeroReparacoes(n);
+					gastosEmReparacoes+=t1.getCusto();
+
+					cout<<"O campo "<<idCampo<<" vai ser reparado pelo tecnico "<<t1.getNome()<<endl;
+					return true;
+				}
+			}
+		}
+
+		temp.push_back(tecnicos.top());
+		tecnicos.pop();
+	}
+
+	for(unsigned int i=0; i<temp.size(); i++){
+		tecnicos.push(temp[i]);
+	}
+
+	return false;
+}
+
+float Empresa::getGastosEmReparacoes() const {
+	return gastosEmReparacoes;
+}
+
+
+
+void Empresa::adicionarReparacao(int idTecnico, int idCampo, string data){
+	vector<Tecnico> temp;
+
+	while(!tecnicos.empty()){
+		Tecnico t1 = tecnicos.top();
+		if(t1.getID() == idTecnico){
+			for(unsigned int i=0; i<campos.size(); i++){
+				campoTenis* ct1 = campos.at(i);
+				if(campos[i]->getNumeroCampo() == idCampo){
+					t1.adicionarCampoReparacao(ct1);
+					t1.adicionarDiaReparacao(data);
+					gastosEmReparacoes+=t1.getCusto();
+					return;
+				}
+			}
+		}
+
+		temp.push_back(t1);
+		tecnicos.pop();
+	}
+
+	for(unsigned int i=0; i<temp.size(); i++){
+		tecnicos.push(temp[i]);
+	}
+
+}
+
+void Empresa::criarTecnico() {
+	string nome;
+	int diasAteDisp;
+	float custo;
+
+	cout<<"Nome do tecnico: ";
+	cin>>nome;
+	cout<<"Disponibilidade ao fim de: (nr de dias)";
+	cin>>diasAteDisp;
+	cout<<"Preco do servico:";
+	cin>>custo;
+
+	Tecnico t1(nome, diasAteDisp, custo);
+	adicionarTecnico(t1);
 
 }

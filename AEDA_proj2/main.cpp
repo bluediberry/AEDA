@@ -12,39 +12,11 @@ bool criar_Professor(Empresa & empresa);
 bool criar_Utente(Empresa & empresa);
 void limpa();
 int inicializar_empresa(Empresa & empresa);
+void pause();
 
 int main() {
-
-	priority_queue<Tecnico> teste;
-	Tecnico t1("claudia", "10-01-2019", "13-01-2019");
-	Tecnico t2("maria", "10-01-2019", "10-01-2019");
-
-	teste.push(t2);
-	teste.push(t1);
-
-
-	cout<<teste.top().getDiasAteDisponibilidade();
-
-
-
-	/*Empresa emp;
-	Utente u1("utente1", "pass1", 2, true);
-	Utente u2("utente2", "pass2", 3, false);
-	Utente u3("utente3", "pass3", 4, true);
-
-	emp.adicionarUtilizador(u1);
-	emp.adicionarUtilizador(u2);
-	emp.adicionarUtilizador(u3);
-
-	cout<<emp.getUtentes().find(u1).getNivel()<<endl;
-	emp.changeNivel(1);
-
-	cout<<emp.getUtentes().find(u1).getNivel()<<endl;
-
-
-
 	Empresa empresa;
-	inicializar_empresa(empresa);
+	empresa.abrirConfig();
 
 	while(1){
 		limpa(); //ver outro clear!
@@ -84,9 +56,7 @@ int main() {
 										cout<<"Juntou-se com sucesso à aula."<<endl;
 									}
 									else cout<<"Não foi possivel juntar-se à aula"<<endl;
-									cout<<"Pressione para continuar."<<endl;
-									string resp;
-									cin>>resp;
+									pause();
 									sucess=false;
 								}
 
@@ -102,9 +72,7 @@ int main() {
 									cout<<"Juntou-se com sucesso à aula."<<endl;
 								}
 								else cout<<"Não foi possivel juntar-se à aula"<<endl;
-								cout<<"Pressione para continuar."<<endl;
-								string resp;
-								cin>>resp;
+								pause();
 								sucess=false;
 							}
 							break;
@@ -113,6 +81,7 @@ int main() {
 								limpa();
 								header_saldo();
 								empresa.verDadosUtente(id);
+								pause();
 							}
 							break;
 						case 4:
@@ -120,6 +89,7 @@ int main() {
 								limpa();
 								header_consulta_aula();
 								empresa.verAula(id);
+								pause();
 							}
 							break;
 						case 5:
@@ -131,9 +101,7 @@ int main() {
 
 			}
 
-			string letra;
-			cout<<"Pressionar para prosseguir"<<endl;
-			cin>>letra;
+			pause();
 		}
 			break;
 
@@ -142,9 +110,7 @@ int main() {
 			limpa();
 			header_registar_utente();
 			empresa.criar_Utente();
-			string letra;
-			cout<<"Pressionar para prosseguir"<<endl;
-			cin>>letra;
+			pause();
 
 		}
 			break;
@@ -173,12 +139,14 @@ int main() {
 						cin>>data;
 						Data d1(data);
 						empresa.listar_DiadeAtividade(numero_campo, data);
+						pause();
 					}
 						break;
 
 					case 2: //HORARIO DAS AULAS
 						header_consulta_aulas();
 						empresa.listar_allAulas();
+						pause();
 						break;
 
 					case 3: //HORARIO DO PROFESSOR
@@ -191,6 +159,7 @@ int main() {
 							string nome;
 							cin>>nome;
 							empresa.listar_Aulas(nome);
+							pause();
 						}
 						break;
 
@@ -248,9 +217,7 @@ int main() {
 								bool teste=empresa.criar_Aula();
 								if(!teste){
 									cout<<"Devera criar um dia de funcionamento coincidente com a data da aula"<<endl;
-									cout<<"Prima uma tecla para prosseguir."<<endl;
-									string tecla;
-									cin>>tecla;
+									pause();
 								}
 							}
 								break;
@@ -266,6 +233,8 @@ int main() {
 							limpa();
 							header_estatistica();
 							empresa.getEstatisticas();
+							pause();
+							pause();
 						}
 							break;
 
@@ -277,6 +246,7 @@ int main() {
 							cout<<"Selecione a identificacao do aluno: "<<endl;
 							cin>>identAluno;
 							empresa.changeNivel(identAluno);
+							pause();
 						}
 						case 8:
 						{
@@ -287,6 +257,39 @@ int main() {
 						}
 						break;
 						case 9:
+						{
+							//adicionar Tecnico
+							limpa();
+							//header
+							empresa.criarTecnico();
+							pause();
+						}
+						break;
+						case 10:
+						{
+							//pedir reparacao
+							limpa();
+							//header
+							empresa.listar_camposDisponiveis();
+							cout<<endl<<"Campo a reparar: ";
+							int idCampo;
+							cin>>idCampo;
+							cout<<endl<<"Dia da reparacao: DD-MM-AAAA";
+							string data;
+							cin>>data;
+
+							bool atribui=empresa.atribuirReparacao(idCampo, data);
+							if(atribui){
+								cout<<"A reparacao foi marcada."<<endl;
+							}
+							else
+								cout<<"Nao existem tecnicos disponiveis. Nao havera reparacao."<<endl;
+
+							pause();
+							pause();
+						}
+						break;
+						case 11:
 							flag=false;
 						}
 					}
@@ -298,151 +301,14 @@ int main() {
 	}
 
 	return 0;
-	*/
+
 }
 
 
-
+void pause() {
+	cout<<"Pressione para prosseguir"<<endl;
+	cin.get();
+}
 void limpa(){
 	cout << string( 100, '\n' ); //ver outro clear!
-}
-
-
-int inicializar_empresa(Empresa &empresa){
-	// CAMPOS
-	string line, abertura, fecho;
-	int campo_id, num_utilizadores;
-	int pointsIndex;
-	ifstream file ("./Files/campos.txt", ios::in);
-	if(file.is_open()){
-		while(getline(file, line)){
-			pointsIndex=line.find_first_of(':'); //identificacao do campo
-			campo_id = atoi((line.substr(0,pointsIndex)).c_str());
-			line.erase(0, pointsIndex+1); //ver pointsIndex+1 ??
-
-			pointsIndex=line.find_first_of(':');
-			num_utilizadores = atoi((line.substr(0,pointsIndex)).c_str());
-			line.erase(0, pointsIndex+1);
-
-			pointsIndex=line.find_first_of(':');
-			abertura=line.substr(0,pointsIndex);
-			line.erase(0, pointsIndex+1);
-
-			pointsIndex=line.find_first_of(':');
-			fecho=line.substr(0,pointsIndex);
-			line.erase(0, pointsIndex+1);
-
-			cout<<campo_id << "   "<<num_utilizadores<<"  "<<abertura<<"   "<<fecho<<endl;
-			campoTenis *ct1 = new campoTenis(campo_id, num_utilizadores, abertura, fecho);
-			empresa.adicionar_campo(ct1);
-		}
-	}
-	else cout<<"NAO DEUU"<<endl;
-
-
-	// UTENTES
-	string line1, password, nome;
-	int utente_id, nivel, cartao, nlivre, naulas;
-	float conta;
-	ifstream file2 ("./Files/utentes.txt", ios::in);
-	if(file2.is_open()){
-			while(getline(file2, line1)){
-				pointsIndex=line1.find_first_of(':'); //identificacao do campo
-				utente_id = atoi((line1.substr(0,pointsIndex)).c_str());
-				line1.erase(0, pointsIndex+1); //ver pointsIndex+1 ??
-
-				pointsIndex=line1.find_first_of(':');
-				cartao = atoi((line1.substr(0,pointsIndex)).c_str());
-				line1.erase(0, pointsIndex+1);
-
-				pointsIndex=line1.find_first_of(':');
-				nivel=atoi(line1.substr(0,pointsIndex).c_str());
-				line1.erase(0, pointsIndex+1);
-
-				pointsIndex=line1.find_first_of(':');
-				password=line1.substr(0,pointsIndex);
-				line1.erase(0, pointsIndex+1);
-
-				pointsIndex=line1.find_first_of(':');
-				conta=atof(line1.substr(0,pointsIndex).c_str());
-				line1.erase(0, pointsIndex+1);
-
-				pointsIndex=line1.find_first_of(':');
-				naulas=atoi(line1.substr(0,pointsIndex).c_str());
-				line1.erase(0, pointsIndex+1);
-
-				pointsIndex=line1.find_first_of(':');
-				nlivre=atoi(line1.substr(0,pointsIndex).c_str());
-				line1.erase(0, pointsIndex+1);
-
-
-				pointsIndex=line1.find_first_of(':');
-				nome=line1.substr(0,pointsIndex);
-				line1.erase(0, pointsIndex+1);
-
-
-				cout<<utente_id << "   "<<cartao<<"  "<<nivel<<"   "<<password<<"   "<<conta<<"  "<<nome<<endl;
-				Utente u1(utente_id, nome, password, nivel, cartao, nlivre, naulas);
-				empresa.adicionarUtilizador(u1);
-			}
-		}
-		else cout<<"NAO DEUU"<<endl;
-
-
-	// PROFESSORES
-	string line3;
-	int id_professor;
-	string nome_prof;
-	ifstream file3 ("./Files/professores.txt", ios::in);
-	if(file2.is_open()){
-			while(getline(file3, line3)){
-				pointsIndex=line3.find_first_of(':'); //identificacao do campo
-				id_professor = atoi((line3.substr(0,pointsIndex)).c_str());
-				line3.erase(0, pointsIndex+1); //ver pointsIndex+1 ??
-
-				pointsIndex=line3.find_first_of(':');
-				nome_prof=line3.substr(0,pointsIndex);
-				line3.erase(0, pointsIndex+1);
-
-				cout<<id_professor << "   "<<nome_prof<<endl;
-				Professor *p1 = new Professor(id_professor, nome_prof);
-				empresa.adicionarProfessor(p1);
-		}
-	}
-
-	// AULAS + DIAS
-	string line4;
-	int id_aula, IDcampo;
-	string data, horario;
-	float preco;
-	ifstream file4 ("./Files/aulas.txt", ios::in);
-	if(file4.is_open()){
-		while(getline(file4, line4)){
-			pointsIndex=line4.find_first_of(':'); //identificacao do campo
-			IDcampo = atoi((line4.substr(0,pointsIndex)).c_str());
-			line4.erase(0, pointsIndex+1);
-
-			pointsIndex=line4.find_first_of(':');
-			id_aula=atoi((line4.substr(0,pointsIndex)).c_str());
-			line4.erase(0, pointsIndex+1);
-
-			pointsIndex=line4.find_first_of(':');
-			data=line4.substr(0,pointsIndex);
-			line4.erase(0, pointsIndex+1);
-
-			pointsIndex=line4.find_first_of(':');
-			horario=line4.substr(0,pointsIndex);
-			line4.erase(0, pointsIndex+1);
-
-			pointsIndex=line4.find_first_of(':');
-			preco=atof(line4.substr(0,pointsIndex).c_str());
-			line4.erase(0, pointsIndex+1);
-
-
-			empresa.atribuir_campo_prof(IDcampo, id_aula, data, horario, preco);
-		}
-	}
-
-
-	return 0;
 }

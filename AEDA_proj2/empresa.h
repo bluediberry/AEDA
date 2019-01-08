@@ -31,14 +31,19 @@ class Empresa{
 	vector<Aula*> aulas;
 	vector<Livre*> modo_livre;
 
+	float gastosEmReparacoes;
+
 public:
 	static float cartao_gold_preco;
 	static float desconto_cartao_gold;
 	static int numero_maximo_utentes_por_campo;
 	static float preco_modo_livre;
 
-	Empresa() : utilizadores(Utente("", "",0,true)){
-	}
+	/**
+	 * @brief Construtor da classe empresa.
+	 */
+	Empresa();
+
 
 /**
  * @brief Adiciona um utente a arvore utilizadores
@@ -47,10 +52,16 @@ public:
 	void adicionarUtilizador(Utente &u1);
 
 	/**
- * @brief
- *
- * @return
- */
+	 * @brief Retorna o dinheiro gasto pela empresa em reparacoes
+	 * @return o valor gasto em reparacoes até ao momento.s
+	 */
+	float getGastosEmReparacoes() const;
+
+/**
+* @brief
+*
+* @return
+*/
 	BST<Utente> getUtentes();
 
 	/**
@@ -216,7 +227,13 @@ public:
  * @brief Guarda informacao sobre campos, professores, alunos e aulas
  * @return
  */
-	int guardarConfig();
+	void guardarConfig();
+
+	/**
+	 * @brief Abre as configuracoes guardadas nos ficheiros e preenche a empresa.
+	 * @return
+	 */
+	void abrirConfig();
 
 	/**
  * @brief Permite ver o dados de um utente
@@ -236,7 +253,6 @@ public:
 	 */
 	void changeNivel(int idAluno);
 
-
 	/**
 	 * @brief Cria e atribui uma aula a um campo
 	 * @param idCampo - identificacao do campo
@@ -251,11 +267,15 @@ public:
 	// 2a parte do projeto
 
 	/**
+	 * @brief Formulario para criar um tecnico
+	 */
+	void criarTecnico();
+
+	/**
 	 * @brief Adiciona um tecnico à priority_queue de tecnicos da empresa.
 	 * @param t1 - tecnico a ser adicionado À fila
-	 * @return true se o tecnico foi adicionado com sucesso; false se nao foi adicionado.
 	 */
-	bool adicionarTecnico(Tecnico &t1);
+	void adicionarTecnico(Tecnico &t1);
 
 	/**
 	 * @brief Retorna a fila de tecnicos
@@ -266,9 +286,20 @@ public:
 	/**
 	 * @brief Adicionar tecnico à reparacao de um campo de identificacao id
 	 * @param id - identificacao do campo
-	 * @return Tecnico que foi atribuido à reparacao
+	 * @return true se um tecnico foi atribuido, falso se nao foi atribuido ninguem.
 	 */
-	Tecnico atribuirReparacao(int id, string data);
+	bool atribuirReparacao(int id, string data);
+
+	/**
+	 * @brief Adiciona ao vetor de campos reparados do tecnico idTecnico, uma reparacao no dia data
+	 * @param idTecnico identificacao do tecnico
+	 * @param idCampo identificacao do campo
+	 * @param data dia da reparacao
+	 * @return
+	 */
+	void adicionarReparacao(int idTecnico, int idCampo, string data);
+
+
 
 };
 

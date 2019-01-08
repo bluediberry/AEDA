@@ -1,8 +1,7 @@
 #include "professor.h"
 
 
-FILE *profs;
-const char* path="profs_registados.txt";
+
 
 Professor::Professor(int id, string nome): Pessoa(id, nome) {}
 

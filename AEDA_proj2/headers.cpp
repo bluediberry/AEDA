@@ -51,9 +51,11 @@ int management_menu(){
 	cout<<"6. Verificar estatisticas"<<endl;
 	cout<<"7. Alterar nivel de aluno"<<endl;
 	cout<<"8. Guardar configura�oes"<<endl;
-	cout<<"9. Sair"<<endl;
+	cout<<"9. Novo Tecnico"<<endl;
+	cout<<"10. Pedir reparacao"<<endl;
+	cout<<"11. Sair"<<endl;
 	cin>>opcao;
-	while(opcao < 1 || opcao > 9){
+	while(opcao < 1 || opcao > 11){
 		cout<<"Por favor selecione uma op��o v�lida [1-8]\n"<<endl;
 		cin>>opcao;
 	}
