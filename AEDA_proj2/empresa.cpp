@@ -599,3 +599,16 @@ void Empresa::changeNivel(int idAluno){
 		cin>>tecla;
 	}
 }
+
+bool Empresa::adicionarTecnico(Tecnico &t1) {
+	tecnicos.push(t1);
+}
+
+priority_queue<Tecnico> Empresa::getTecnicos() {
+	return tecnicos;
+}
+
+Tecnico Empresa::atribuirReparacao(int idCampo, string dataReparacao){
+	Tecnico t1 = getTecnicos().top();
+
+}

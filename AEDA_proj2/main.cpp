@@ -14,8 +14,20 @@ void limpa();
 int inicializar_empresa(Empresa & empresa);
 
 int main() {
-	//vector<campoTenis*> camposTenis;
-	Empresa emp;
+
+	priority_queue<Tecnico> teste;
+	Tecnico t1("claudia", "10-01-2019", "13-01-2019");
+	Tecnico t2("maria", "10-01-2019", "10-01-2019");
+
+	teste.push(t2);
+	teste.push(t1);
+
+
+	cout<<teste.top().getDiasAteDisponibilidade();
+
+
+
+	/*Empresa emp;
 	Utente u1("utente1", "pass1", 2, true);
 	Utente u2("utente2", "pass2", 3, false);
 	Utente u3("utente3", "pass3", 4, true);
@@ -286,6 +298,7 @@ int main() {
 	}
 
 	return 0;
+	*/
 }
 
 

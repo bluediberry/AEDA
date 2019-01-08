@@ -3,9 +3,14 @@
 #include "utente.h"
 #include "professor.h"
 #include "campoTenis.h"
-#include "BST.h"
+
 #include <fstream>
+
+/** 2a parte do projeto **/
+#include "BST.h"
 #include <unordered_set>
+#include "tecnico.h"
+#include <queue>
 
 struct professorPtr {
 	int operator()(const profPtr &p1) const {
@@ -21,6 +26,7 @@ typedef unordered_set<profPtr, professorPtr, professorPtr> tabHProfessores;
 class Empresa{
 	BST<Utente> utilizadores;
 	tabHProfessores professores;
+	priority_queue<Tecnico> tecnicos;
 	vector<campoTenis*> campos;
 	vector<Aula*> aulas;
 	vector<Livre*> modo_livre;
@@ -40,18 +46,6 @@ public:
  */
 	void adicionarUtilizador(Utente &u1);
 
-	int teste(){
-		BSTItrIn<Utente> it(utilizadores);
-		int contador=0;
-		while(!it.isAtEnd()){
-
-			contador++;
-
-			it.advance();
-		}
-
-		return contador;
-	}
 	/**
  * @brief
  *
@@ -244,14 +238,38 @@ public:
 
 
 	/**
-	 * @brief: Cria e atribui uma aula a um campo
-	 * @param: idCampo - identificacao do campo
-	 * @param: idAula - identificacao da aula
-	 * @param: data - dia da realizacao da aula
-	 * @param: horario - horario de inicio da aula
-	 * @param: preco - preco da aula
+	 * @brief Cria e atribui uma aula a um campo
+	 * @param idCampo - identificacao do campo
+	 * @param idAula - identificacao da aula
+	 * @param data - dia da realizacao da aula
+	 * @param horario - horario de inicio da aula
+	 * @param preco - preco da aula
+	 * @return true se o campo foi atribuido com sucesso
 	 */
 	bool atribuir_campo_prof(int idCampo, int idAula, string data, string horario, float preco);
+
+	// 2a parte do projeto
+
+	/**
+	 * @brief Adiciona um tecnico à priority_queue de tecnicos da empresa.
+	 * @param t1 - tecnico a ser adicionado À fila
+	 * @return true se o tecnico foi adicionado com sucesso; false se nao foi adicionado.
+	 */
+	bool adicionarTecnico(Tecnico &t1);
+
+	/**
+	 * @brief Retorna a fila de tecnicos
+	 * @return priority_queue com os tecnicos
+	 */
+	priority_queue<Tecnico> getTecnicos();
+
+	/**
+	 * @brief Adicionar tecnico à reparacao de um campo de identificacao id
+	 * @param id - identificacao do campo
+	 * @return Tecnico que foi atribuido à reparacao
+	 */
+	Tecnico atribuirReparacao(int id, string data);
+
 };
 
 
