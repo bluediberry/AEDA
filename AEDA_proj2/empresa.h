@@ -299,8 +299,23 @@ public:
 	 */
 	void adicionarReparacao(int idTecnico, int idCampo, string data);
 
+	/**
+	 * @brief Listar todos os tecnicos disponiveis
+	 * @return
+	 */
+	void listarTecnicos();
 
+	/**
+	 * @brief Listar reparacoes efetuadas
+	 * @return
+	 */
+	void listarReparacoes();
 
+	/**
+	 * @brief Remove tecnico da priority queue e atribui as reparacoes a outro tecnico
+	 * @return true se as novas atribuicoes foram bem sucedidas, false se nao foram
+	 */
+	bool removerTecnico();
 };
 
 

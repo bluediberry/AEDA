@@ -50,11 +50,7 @@ public:
  */
 	void setPassword(string password);
 
-	/**
- * @brief
- * @return
- */
-	virtual const char* getInfo()=0;
+
 
 	/**
  * @brief Operador == para comparar pessoas.

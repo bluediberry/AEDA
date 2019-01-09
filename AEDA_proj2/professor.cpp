@@ -7,10 +7,10 @@ Professor::Professor(int id, string nome): Pessoa(id, nome) {}
 
 Professor::Professor(string nome) : Pessoa(nome){}
 
-const char * Professor::getInfo(){
+string Professor::getInfo() const{
 	string toconvert = to_string(this->getID()) + ":" + this->getNome();
-	const char * to_print = toconvert.c_str();
-	return to_print;
+
+	return toconvert;
 }
 
 void Professor::adicionar_aula(Aula * a1){

@@ -5,7 +5,7 @@ int menu_principal(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"  EMPRESA DE GESTAO DE CAMPOS TENIS "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma op��o."<<endl;
+	cout<<"Por favor, selecione uma opcao."<<endl;
 	cout<<"1. Login"<<endl;
 	cout<<"2. Registar"<<endl;
 	cout<<"3. Consultar horarios"<<endl;
@@ -24,14 +24,14 @@ int menu_consultas(){
 	cout<<"------------------------------------"<<endl;
 	cout<<"          C O N S U L T A S         "<<endl;
 	cout<<"------------------------------------"<<endl;
-	cout<<"Por favor, selecione uma op��o."<<endl;
-	cout<<"1. Hor�rio de campo"<<endl;
-	cout<<"2. Hor�rio das aulas "<<endl;
-	cout<<"3. Hor�rio de professor"<<endl;
+	cout<<"Por favor, selecione uma opcao."<<endl;
+	cout<<"1. Horario de campo"<<endl;
+	cout<<"2. Horario das aulas "<<endl;
+	cout<<"3. Horario de professor"<<endl;
 	cout<<"4. Menu anterior"<<endl;
 	cin>>opcao;
 	while(opcao < 1 || opcao > 4){
-		cout<<"Por favor selecione uma op��o v�lida [1-4]\n"<<endl;
+		cout<<"Por favor selecione uma opcao valida [1-4]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -53,10 +53,13 @@ int management_menu(){
 	cout<<"8. Guardar configura�oes"<<endl;
 	cout<<"9. Novo Tecnico"<<endl;
 	cout<<"10. Pedir reparacao"<<endl;
-	cout<<"11. Sair"<<endl;
+	cout<<"11. Listar Tecnicos"<<endl;
+	cout<<"12. Listar Reparacoes"<<endl;
+	cout<<"13. Remover Tecnico"<<endl;
+	cout<<"14. Sair"<<endl;
 	cin>>opcao;
-	while(opcao < 1 || opcao > 11){
-		cout<<"Por favor selecione uma op��o v�lida [1-8]\n"<<endl;
+	while(opcao < 1 || opcao > 14){
+		cout<<"Por favor selecione uma opcao valida [1-14]\n"<<endl;
 		cin>>opcao;
 	}
 	return opcao;
@@ -176,5 +179,17 @@ void header_dia_atividade(){
 void header_marcar_aula(){
 	cout<<"--------------------------------------"<<endl;
 	cout<<"          M A R C A R  A U L A        "<<endl;
+	cout<<"--------------------------------------"<<endl;
+}
+
+void header_tecnicos(){
+	cout<<"--------------------------------------"<<endl;
+	cout<<"            T E C N I C O S           "<<endl;
+	cout<<"--------------------------------------"<<endl;
+}
+
+void header_reparacoes(){
+	cout<<"--------------------------------------"<<endl;
+	cout<<"          R E P A R A C O E S         "<<endl;
 	cout<<"--------------------------------------"<<endl;
 }

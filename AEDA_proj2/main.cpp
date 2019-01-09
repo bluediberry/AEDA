@@ -226,6 +226,7 @@ int main() {
 								limpa();
 								file_utentes();
 								empresa.listar_Alunos();
+								pause();
 							}
 								break;
 						case 6: //ESTATISTICAS GERAIS
@@ -260,7 +261,7 @@ int main() {
 						{
 							//adicionar Tecnico
 							limpa();
-							//header
+							header_tecnicos();
 							empresa.criarTecnico();
 							pause();
 						}
@@ -269,7 +270,7 @@ int main() {
 						{
 							//pedir reparacao
 							limpa();
-							//header
+							header_reparacoes();
 							empresa.listar_camposDisponiveis();
 							cout<<endl<<"Campo a reparar: ";
 							int idCampo;
@@ -286,10 +287,41 @@ int main() {
 								cout<<"Nao existem tecnicos disponiveis. Nao havera reparacao."<<endl;
 
 							pause();
-							pause();
+
 						}
 						break;
 						case 11:
+						{
+							limpa();
+							header_tecnicos();
+							empresa.listarTecnicos();
+							pause();
+						}
+						break;
+						case 12:
+						{
+							limpa();
+							header_reparacoes();
+							empresa.listarReparacoes();
+							pause();
+						}
+						break;
+						case 13:
+						{
+							limpa();
+							header_tecnicos();
+							empresa.listarTecnicos();
+							bool atribuido=empresa.removerTecnico();
+							if(atribuido)
+								cout<<"Todas as reparacoes foram atribuidas a outro tecnico"<<endl;
+							else
+								cout<<"Nem todas as reparacoes foram atribuidas."<<endl;
+							pause();
+
+						}
+						break;
+
+						case 14:
 							flag=false;
 						}
 					}
@@ -307,6 +339,7 @@ int main() {
 
 void pause() {
 	cout<<"Pressione para prosseguir"<<endl;
+	cin.get();
 	cin.get();
 }
 void limpa(){

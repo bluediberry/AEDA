@@ -123,4 +123,17 @@ void header_saldo();
 * @return
 */
 void header_consulta_aula();
+
+/**
+ * @brief
+ * @return
+ */
+void header_tecnicos();
+
+/**
+ * @brief
+ * @return
+ */
+void header_reparacoes();
+
 #endif /* HEADERS_H_ */

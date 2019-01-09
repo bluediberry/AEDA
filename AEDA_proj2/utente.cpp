@@ -4,14 +4,10 @@
 FILE * utentes;
 const char *path1="utentes_registados.txt";
 
-Utente::Utente(int id, string nome, string password, int nivel, bool cartao, int livre, int aula) : Pessoa(id, nome){
+Utente::Utente(int id, string nome, string password, int nivel, bool cartao, int livre, int aula, float conta) : Pessoa(id, nome){
 	this->nivel=nivel;
 	this->cartao=cartao;
-	if(this->cartao==true){
-		this->conta=5.95;
-	}
-	else
-		this->conta=0;
+	this->conta=conta;
 
 	this->password=password;
 	total_livre=livre;
@@ -51,11 +47,11 @@ bool Utente::getCartao() const{
 	return this->cartao;
 }
 
-const char * Utente::getInfo(){
-	string toconvert = to_string(this->getID()) + ":" + to_string(this->getCartao()) + ":" + to_string(this->getNivel()) + ":" + this->getPassword() + ":" + to_string(this->getConta()) + ":" + to_string(this->getTotalAula()) + ":" + to_string(this->getTotalLivre()) + ":" + this->getNome();
+string Utente::getInfo() const{
+	string toconvert = to_string((this->getID())) + ":" + to_string((this->getCartao())) + ":" + to_string(this->getNivel()) + ":" + this->getPassword() + ":" + to_string(this->getConta()) + ":" + to_string(this->getTotalAula()) + ":" + to_string(this->getTotalLivre()) + ":" + this->getNome();
 	const char * to_print = toconvert.c_str();
 
-	return to_print;
+	return toconvert;
 }
 
 void Utente::somar_aula(float preco){

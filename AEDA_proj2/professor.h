@@ -45,7 +45,7 @@ public:
 	vector<Aula*> getAulas() const;
 
 	/*VIRTUAL METHODS*/
-	const char* getInfo();
+	string getInfo() const;
 };
 
 struct profPtr {

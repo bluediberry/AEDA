@@ -209,8 +209,8 @@ void Empresa::getEstatisticas(){
 	cout<<"Numero de aulas:\t\t"<<getAulas().size()<<endl;
 	cout<<"Numero de utilizacoes em modo livre: "<<getLivre().size()<<endl;
 	cout<<"Ganhos da empresa:\t\t"<<getSaldo()<<endl;
-	cout<<"Gastos da empresa:\t\t"<<getGastosEmReparacoes()<<endl<<endl;
-
+	cout<<"Gastos da empresa:\t\t"<<getGastosEmReparacoes()<<endl;
+	cout<<"Numero de tecnicos associados:\t"<<getTecnicos().size()<<endl<<endl;
 }
 
 bool Empresa::criar_Aula(){
@@ -407,8 +407,8 @@ void Empresa::guardarConfig(){
 
 	while(!it.isAtEnd()){
 		Utente u1 = it.retrieve();
-		utentes<<u1.getInfo()<<endl;
-
+		string info = it.retrieve().getInfo();
+		utentes<<info<<endl;
 		it.advance();
 	}
 	utentes.close();
@@ -476,18 +476,6 @@ void Empresa::guardarConfig(){
 	for(unsigned int i=0; i<temp2.size(); i++){
 		tecnicos.push(temp2[i]);
 	}
-
-
-	/*
-	ifstream  src1("./Files/campos_temp.txt");
-	ofstream  dst1("./Files/campos.txt");
-	ifstream  src2("./Files/alunos_temp.txt");
-	ofstream  dst2("./Files/alunos.txt");
-	ifstream  src3("./Files/aulas_temp.txt");
-	ofstream  dst3("./Files/aulas.txt");
-	ifstream  src4("./Files/professores_temp.txt");
-	ofstream  dst4("./Files/professores.txt");
-	*/
 }
 
 void Empresa::abrirConfig(){
@@ -557,7 +545,7 @@ void Empresa::abrirConfig(){
 		nome=line1.substr(0,pointsIndex);
 		line1.erase(0, pointsIndex+1);
 
-		Utente u1(idUtilizador, nome, password, nivel, cartao, nlivre, naulas);
+		Utente u1(idUtilizador, nome, password, nivel, cartao, nlivre, naulas, conta);
 		adicionarUtilizador(u1);
 	}
 
@@ -638,7 +626,7 @@ void Empresa::abrirConfig(){
 		DiasAteDisponibilidade = atoi((line6.substr(0,pointsIndex)).c_str());
 		line6.erase(0, pointsIndex+1);
 
-		Tecnico t1(idTecnico, nomeTec, nrReparacoes, DiasAteDisponibilidade, custoReparacao);
+		Tecnico t1(idTecnico, nomeTec, nrReparacoes, DiasAteDisponibilidade, custoReparacao, "01-01-1999");
 		adicionarTecnico(t1);
 	}
 
@@ -650,7 +638,7 @@ void Empresa::abrirConfig(){
 	reparacoes.open("./Files/reparacoes.txt");
 	while(getline(reparacoes, line5)){
 		pointsIndex = line5.find_first_of(':');
-		idTecnico = atoi((line5.substr(0, pointsIndex)).c_str());
+		idTecnico2 = atoi((line5.substr(0, pointsIndex)).c_str());
 		line5.erase(0, pointsIndex+1);
 
 		pointsIndex=line5.find_first_of(':');
@@ -661,7 +649,7 @@ void Empresa::abrirConfig(){
 		data2=line5.substr(0,pointsIndex);
 		line5.erase(0, pointsIndex+1);
 
-		adicionarReparacao(idTecnico, idCampo3, data2);
+		adicionarReparacao(idTecnico2, idCampo3, data2);
 	}
 
 
@@ -789,12 +777,22 @@ bool Empresa::atribuirReparacao(int idCampo, string dataReparacao){
 			for(unsigned int i=0; i<campos.size(); i++){
 				campoTenis *ct1 = campos.at(i);
 				if(ct1->getNumeroCampo() == idCampo){
-					t1.adicionarCampoReparacao(ct1);
-					t1.adicionarDiaReparacao(dataReparacao);
+					try
+					{
+						tecnicos.pop();
+						t1.adicionarCampoReparacao(ct1);
+						t1.adicionarDiaReparacao(dataReparacao);
+					}
+					catch(ExceptionNumeroDeReparacoesExcedida &exception){
+						cerr<<exception.getInfo();
+						return false;
+					}
+
 					int n = t1.getNumeroReparacoes();
 					n++;
 					t1.setNumeroReparacoes(n);
 					gastosEmReparacoes+=t1.getCusto();
+					tecnicos.push(t1);
 
 					cout<<"O campo "<<idCampo<<" vai ser reparado pelo tecnico "<<t1.getNome()<<endl;
 					return true;
@@ -828,9 +826,11 @@ void Empresa::adicionarReparacao(int idTecnico, int idCampo, string data){
 			for(unsigned int i=0; i<campos.size(); i++){
 				campoTenis* ct1 = campos.at(i);
 				if(campos[i]->getNumeroCampo() == idCampo){
+					tecnicos.pop();
 					t1.adicionarCampoReparacao(ct1);
 					t1.adicionarDiaReparacao(data);
 					gastosEmReparacoes+=t1.getCusto();
+					tecnicos.push(t1);
 					return;
 				}
 			}
@@ -847,7 +847,7 @@ void Empresa::adicionarReparacao(int idTecnico, int idCampo, string data){
 }
 
 void Empresa::criarTecnico() {
-	string nome;
+	string nome, data;
 	int diasAteDisp;
 	float custo;
 
@@ -857,8 +857,98 @@ void Empresa::criarTecnico() {
 	cin>>diasAteDisp;
 	cout<<"Preco do servico:";
 	cin>>custo;
+	cout<<"Data de inscricao: DD-MM-AAAA";
+	cin>>data;
 
-	Tecnico t1(nome, diasAteDisp, custo);
+	Tecnico t1(nome, diasAteDisp, custo, data);
 	adicionarTecnico(t1);
+
+}
+
+void Empresa::listarTecnicos(){
+	vector<Tecnico> temp;
+
+	cout<<"ID\tNOME\tREPARACOES EFETUADAS\tDIAS ATE DISP"<<endl;
+	while(!tecnicos.empty()){
+
+		cout<<tecnicos.top().getID()<<"\t";
+		cout<<tecnicos.top().getNome()<<"\t";
+		cout<<tecnicos.top().getNumeroReparacoes()<<"\t\t\t\t";
+		cout<<tecnicos.top().getDiasAteDisponibilidade()<<endl;
+
+		temp.push_back(tecnicos.top());
+		tecnicos.pop();
+	}
+
+	for(unsigned int i=0; i<temp.size(); i++){
+		tecnicos.push(temp[i]);
+	}
+}
+
+void Empresa::listarReparacoes(){
+	vector<Tecnico> temp;
+
+	cout<<"NOME\tCAMPO REPARADO\tDATA"<<endl;
+	while(!tecnicos.empty()){
+		Tecnico t1 = tecnicos.top();
+		for(unsigned int i=0; t1.getDiasReparacao().size(); i++){
+			cout<<t1.getNome()<<"\t";
+			cout<<t1.getCamposReparados()[i]->getNumeroCampo()<<"\t\t\t";
+			cout<<t1.getDiasReparacao()[i]->data_friendly_print()<<endl;
+		}
+
+		temp.push_back(t1);
+		tecnicos.pop();
+	}
+
+	for(unsigned int i=0; i<temp.size(); i++){
+		tecnicos.push(temp[i]);
+	}
+}
+
+
+bool Empresa::removerTecnico(){
+	int idTec;
+	cout<<"Escolha o tecnico a remover: "<<endl;
+	cin>>idTec;
+
+	vector<Tecnico> temp;
+	int contador=0;
+	int numDatas=0;
+	while(!tecnicos.empty()){
+		if(tecnicos.top().getID() == idTec){
+			Tecnico t=tecnicos.top();
+			numDatas=t.getDiasReparacao().size();
+
+			for(unsigned int i=0; i<t.getCamposReparados().size(); i++){
+				campoTenis *ct1=t.getCamposReparados().at(i);
+				string data = t.getDiasReparacao().at(i)->data_friendly_print();
+
+				if(atribuirReparacao(ct1->getNumeroCampo(), data)){
+					contador++;
+				}
+
+			}
+
+			tecnicos.pop();
+			break;
+
+		}
+
+		temp.push_back(tecnicos.top());
+		tecnicos.pop();
+
+	}
+
+	for(unsigned int i=0; i<temp.size(); i++){
+		tecnicos.push(temp[i]);
+	}
+
+	if(numDatas==contador)
+		return true; //todas as reparacoes foram re-atribuidas
+	else
+		return false;
+
+
 
 }

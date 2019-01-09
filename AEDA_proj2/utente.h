@@ -25,7 +25,7 @@ public:
  * @param nr_livre - numero de utilizacoes em modo livre
  * @param nr_aula - numero de utilizacos em modo de aula
  */
-	Utente(int id, string nome, string password, int nivel, bool cartao, int nr_livre, int nr_aula);
+	Utente(int id, string nome, string password, int nivel, bool cartao, int nr_livre, int nr_aula, float conta);
 
 	/**
  * @brief Construtor da classe Utente.
@@ -114,7 +114,7 @@ public:
 
 
 	/*VIRTUAL METHODS*/
-	const char * getInfo();
+	string getInfo() const;
 	void setNivel(int nivel);
 };
 

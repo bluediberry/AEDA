@@ -57,7 +57,6 @@ public:
  * @return Retorna true caso a data em questão seja igual à data a comparar, false caso contrário.
  */
 	bool operator==(const Data &outraData);
-
 };
 
 class InvalidDateException{

@@ -83,3 +83,4 @@ bool Data::operator==(const Data &outra){
 		return false;
 	return true;
 }
+

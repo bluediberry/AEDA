@@ -5,7 +5,7 @@
 #include "campoTenis.h"
 //#include "data.h"
 
-#define MAX_UTILIZACAO 10;
+#define MAX_REPARACOES 10
 
 class Tecnico: public Pessoa {
 	int numeroReparacoes;
@@ -13,6 +13,7 @@ class Tecnico: public Pessoa {
 	vector<campoTenis*> camposReparados;
 	vector<Data*> diasReparacao;
 	float custo;
+	Data dataInscricao;
 
 public:
 	/**
@@ -21,15 +22,22 @@ public:
 	 * @param nome nome do tecnico
 	 * @param nrRep numero de reparacoes efetuadas pelo tecnico
 	 * @param diasDisp numero de dias ate o tecnico se encontrar disponivel
+	 * @param data data em que o tecnico se juntou a empresa
 	 */
-	Tecnico(int idTec, string nome, int nrRep, int diasDisp, float custo);
+	Tecnico(int idTec, string nome, int nrRep, int diasDisp, float custo, string data);
 
 	/**
 	 * @brief construtor da classe tecnico
 	 * @param nome nome do tecnico
 	 * @param diasAteDisp numero de dias ate o tecnico estar disponivel
 	 */
-	Tecnico(string nome, int diasAteDisp, float custo);
+	Tecnico(string nome, int diasAteDisp, float custo, string data);
+
+	/**
+	 * @brief retorna data em que o tecnico se juntou a empresa
+	 * @return string com a data
+	 */
+	string getData() const;
 
 	/**
 	 * @brief Retorna o valor do custo do serviço associado à reparacao.
@@ -77,7 +85,7 @@ public:
  * @brief Retorna informacao relativa ao tecnico
  * @return informacao do tecnico
  */
-	const char* getInfo();
+	string getInfo() const;
 
 	/**
 	 * @brief Retorna os dias em que o tecnico trabalhou a fazer reparacoes.
@@ -91,14 +99,29 @@ public:
 	 * @return true se ele trabalha nesse dia, false se nao trabalha.
 	 */
 	bool checkDiaReparacao(string dia);
+
+	/**
+	 * @brief Adiciona um dia de reparacao ao vetor de dias.
+	 */
 	void adicionarDiaReparacao(string data);
+
+	/*
+	 * @brief ADiciona um campo para reparacao ao vetor de acmpos
+	 */
 	void adicionarCampoReparacao(campoTenis * ct1);
+
+	/*
+	 * @brief Verifica se o tecnico ja esta disponivel para trabalhar apartir do dia dia.
+	 * @return true se estiver disponivel, false se nao estiver.
+	 */
+	bool disponivel(string dia);
 };
 
-class NaoDA{
+class ExceptionNumeroDeReparacoesExcedida{
 public:
-	NaoDA(){
-		cout<<"nao dava."<<endl;
+	ExceptionNumeroDeReparacoesExcedida();
+	string getInfo() const {
+		return "O tecnico escolhido excedeu o numero de reparacoes.";
 	}
 };
 
